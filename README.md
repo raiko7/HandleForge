@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/raiko7/HandleForge.svg?branch=master)](https://travis-ci.org/raiko7/HandleForge)
+
 # Overview
 *HandleForge* is a minimal header-only C++ implementation of a handle table. 
 Handle tables free programmers from the drawbacks of using pointers as handles 
