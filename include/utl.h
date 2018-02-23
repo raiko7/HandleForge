@@ -5,6 +5,8 @@
 //
 //    foundation utilities
 //
+//    (C) Copyright 2018 by Rainer Koppler
+//
 //==============================================================================
 //
 #include <memory>
@@ -34,32 +36,32 @@ namespace std {
 #endif
 
 #ifdef UTL_HAVE_RPC
-   template <>	struct default_delete<CLIENT> {
-		void operator()(CLIENT *cp) { if (cp) clnt_destroy(cp); }
-	};
+   template <> struct default_delete<CLIENT> {
+      void operator()(CLIENT *cp) { if (cp) clnt_destroy(cp); }
+   };
 #endif
 }
 
 /******************************************************************************/
 namespace utl {
 
-	namespace detail {
-		struct free_adapter {
-			void operator()(void *p) { free(p); }
-		};
-	}
+   namespace detail {
+      struct free_adapter {
+         void operator()(void *p) { free(p); }
+      };
+   }
 
-	// RAII adapters for leakable C resources
-	using file_ptr   = std::unique_ptr<FILE>;
-	using malloc_ptr = std::unique_ptr<void, detail::free_adapter>;
+   // RAII adapters for leakable C resources
+   using file_ptr   = std::unique_ptr<FILE>;
+   using malloc_ptr = std::unique_ptr<void, detail::free_adapter>;
 
-	// RAII adapters for leakable POSIX resources
+   // RAII adapters for leakable POSIX resources
 #ifdef UTL_HAVE_DIRENT
-	using dir_ptr = std::unique_ptr<DIR>;
+   using dir_ptr = std::unique_ptr<DIR>;
 #endif
 
 #ifdef UTL_HAVE_RPC
-	using client_ptr = std::unique_ptr<CLIENT>;
+   using client_ptr = std::unique_ptr<CLIENT>;
 #endif
 }
 
